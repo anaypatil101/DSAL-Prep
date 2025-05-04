@@ -93,7 +93,7 @@ class BST {
         }
 
         void inorder() {
-            cout << "Preorder Traversal: "; 
+            cout << "Inorder Traversal: "; 
             stack<Node*> st1;
             Node *temp = root;
             while(!st1.empty() || temp != NULL) {
@@ -126,6 +126,10 @@ class BST {
             }
         }
 
+        Node* swapNodesRoot() {
+            return swapNodes(root);
+        }
+
         Node* swapNodes(Node *node) {
             if(node == NULL) return NULL;
             if(node -> left && node -> right) {
@@ -136,10 +140,52 @@ class BST {
             swapNodes(node -> left);
             swapNodes(node -> right);
         }
+
+        int getMinimum() {
+            Node *curr = root;
+
+            while(curr -> left != NULL) {
+                curr = curr -> left;
+            }
+            return curr -> data;
+        }
+
+        int getMaximum() {
+            Node *curr = root;
+
+            while(curr -> right != NULL) {
+                curr = curr -> right;
+            }
+            return curr -> data;
+        }
+
+        int height(Node *node) {
+            if(node == NULL) return 0;
+
+            int lh = height(node -> left);
+            int rh = height(node -> right);
+            return max(lh,rh) + 1;
+        }
     };
 
 int main() {
     
-
+    BST tree;
+    tree.insert(4);
+    tree.insert(8);
+    tree.insert(2);
+    tree.insert(9);
+    tree.insert(3);
+    tree.insert(10);
+    tree.insert(1);
+    cout << "Tree : " << endl;
+    tree.inorder();
+    cout << endl;
+    cout << "Search 15 : " << (tree.search(15) ? "true" : "false") << endl;
+    cout << "Minimum : " << tree.getMinimum() << endl;
+    cout << "Maximum : " << tree.getMaximum() << endl;
+    tree.swapNodesRoot();
+    cout << "After swapping nodes: " << endl;
+    tree.inorder();
     return 0;
 }
