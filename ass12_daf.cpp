@@ -171,7 +171,7 @@ class MyFile {
             if(lo == -1)
                 cout << "No such record exists" << endl;
             else {
-                file.seekp(lo, ios::beg);
+                file.seekg(lo, ios::beg);
                 file.read(reinterpret_cast<char*>(&E), sizeof(E));
                 E.display();
             }
@@ -201,7 +201,7 @@ class MyFile {
             }
             file.close(); temp.close();
             remove(filename);
-            rename("temp", filename);            
+            rename("temp.txt", filename);            
             table.deleteHT(empId);
             cout << "\nRecord deleted" << endl;
         }
@@ -211,6 +211,41 @@ class MyFile {
 
 
 int main() {
+    MyFile mf;
+    int choice;
+    string name, address;
+    int empId;
 
-    return 0;
+    while (true) {
+        cout << "\n--- Employee Management Menu ---\n";
+        cout << "1. Add Employee Record\n";
+        cout << "2. Read Employee Record\n";
+        cout << "3. Delete Employee Record\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter Employee Name: ";
+                cin.ignore();
+                getline(cin, name);
+                cout << "Enter Address: ";
+                getline(cin, address);
+                cout << "Enter Employee ID: ";
+                cin >> empId;
+                mf.addRecord(name, address, empId);
+                break;
+
+            case 2:
+                cout << "Enter Employee ID to read: ";
+                cin >> empId;
+                mf.readRecord(empId);
+                break;
+
+            case 3:
+                cout << "Enter Employee ID to delete: ";
+                cin >> empId;
+        }
+    }
 }
