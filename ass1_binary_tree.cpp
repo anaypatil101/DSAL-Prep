@@ -15,9 +15,9 @@ class Node {
 };
 
 class BT {
-    Node *root;
 
     public:
+    Node *root;
     BT() {
         root = NULL;
     }
@@ -53,9 +53,9 @@ class BT {
         if (node == NULL)
             return;
 
-        preorder(node->left);
+        inorder(node->left);
         cout << node->data << " ";
-        preorder(node->right);
+        inorder(node->right);
     }
 
     void ipreorder(Node *node) {
@@ -103,7 +103,7 @@ class BT {
         while(!st1.empty()) {
             Node *temp = st1.top();
             st1.pop();
-            st2.push(temp);
+            st2.push(temp);     //imp
 
             if(temp -> left) st1.push(temp -> left);
             if(temp -> right) st1.push(temp -> right);
@@ -143,6 +143,9 @@ class BT {
                 root -> left -> data = root -> right -> data;
                 root -> right -> data = temp;
             }
+
+            swapNodes(root -> left);
+            swapNodes(root -> right);
         }
     
 
@@ -167,14 +170,27 @@ class BT {
 
         return newRoot;
     }
+
+    BT& operator=(const BT &other) {
+        if (this != &other) {
+            // Clean up existing tree
+            deleteTree(this->root);
+            this->root = NULL;
+    
+            // Deep copy from other
+            this->root = cloneTree(other.root);
+        }
+        return *this;
+    }
+    
 };
 
 int main() {
     BT tree;
     Node *root = tree.buildTree();
     tree.ipreorder(root);
-    tree.swapNodes(root);
-    tree.preorder(root);
+    BT tree2 = tree;
+    tree2.ipreorder(tree2.root);
 
 
     return 0;

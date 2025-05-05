@@ -54,7 +54,7 @@ class Dictionary {
             }
             t = t -> next;
         }
-        if(t -> key == key) 
+        if(t -> key == key) //For last element
             return t;
         else
             return NULL; 
