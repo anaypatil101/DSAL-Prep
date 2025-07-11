@@ -1,4 +1,6 @@
 # Ignore everything
 *
-# But not .cpp files
+
+# But not these exceptions
+!.gitignore
 !*.cpp
